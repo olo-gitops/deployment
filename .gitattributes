@@ -1,0 +1,8 @@
+ca/**		filter=sops-agify
+ssh/**		filter=sops-agify
+vault/**	filter=sops-agify
+
+*secret*	filter=sops-agify
+*credential*	filter=sops-agify
+*creds*		filter=sops-agify
+*key*		filter=sops-agify
