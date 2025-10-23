@@ -1,0 +1,97 @@
+autoDirectNodeRoutes: true
+bandwidthManager:
+  enabled: true
+  brr: true
+bgpControlPlane:
+  enabled: true
+bpf:
+  masquerade: true
+  tproxy: true
+bpfClockProbe: true
+ciliumEndpointSlice:
+  enabled: false
+dashboards:
+  enabled: true
+egressGateway:
+  enabled: true
+envoy:
+  enabled: true
+  prometheus:
+    serviceMonitor:
+      enabled: true
+  rollOutPods: true
+  securityContext:
+    capabilities:
+      envoy:
+        - NET_ADMIN
+        - PERFMON
+        - BPF
+      keepCapNetBindService: true
+envoyConfig:
+  enabled: true
+externalIPs:
+  enabled: true
+gatewayAPI:
+  enableAlpn: true
+  enabled: true
+hubble:
+  enabled: true
+  metrics:
+    dashboards:
+      enabled: true
+    enableOpenMetrics: true
+    enabled:
+      - dns:query;ignoreAAAA
+      - drop
+      - flow
+      - httpV2
+      - icmp
+      - port-distribution
+      - tcp
+    serviceMonitor:
+      enabled: true
+  relay:
+    enabled: true
+    prometheus:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+    rollOutPods: true
+  tls:
+    enabled: false
+  ui:
+    enabled: true
+    rollOutPods: true
+ingressController:
+  enabled: false
+ipam:
+  operator:
+    clusterPoolIPv4PodCIDRList: 10.16.0.0/12
+ipv4NativeRoutingCIDR: 10.16.0.0/12
+k8s:
+  apiServerURLs: 'https://control.k8s.home.lrnz.at:6443 https://control-01.k8s.home.lrnz.at:6443'
+k8sClientRateLimit:
+  burst: 100
+  qps: 50
+kubeProxyReplacement: true
+kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
+labels: "lrnz\\.at/.*"
+loadBalancer:
+  l7:
+    backend: envoy
+logOptions:
+  level: WARNING
+operator:
+  prometheus:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+  replicas: 1
+  rollOutPods: true
+prometheus:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+    trustCRDsExist: true
+rollOutCiliumPods: true
+routingMode: native
