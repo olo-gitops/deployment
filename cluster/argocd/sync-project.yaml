@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: bootstrap
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
+spec:
+  description: Project used to bootstrap the cluster
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
+  destinations:
+    - namespace: "*"
+      server: "*"
+  sourceRepos:
+    - "*"
+  orphanedResources:
+    warn: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bootstrap-homelab
+  namespace: argocd
+spec:
+  project: bootstrap
+  source:
+    path: bootstrap/apps
+    repoURL: git@github.com:olo-gitops/homelab.git
+    targetRevision: test
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
