@@ -1,0 +1,14 @@
+disable:
+  - servicelb
+  - traefik
+disable-kube-proxy: true
+disable-network-policy: true
+flannel-backend: "none"
+cluster-cidr: "10.16.0.0/12"
+node-label:
+  - "bgp=65000"
+tls-san:
+  - "control-01.k8s.home.lrnz.at"
+  - "control.k8s.home.lrnz.at"
+  - "192.168.200.1"
+  - "192.168.50.33"
